@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prescription Upload</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f7fa;
+      margin: 0;
+      padding: 0;
+    }
+
+    .section__container {
+      width: 90%;
+      max-width: 1000px;
+      margin: 40px auto;
+      padding: 40px;
+      border-radius: 12px;
+    }
+
+    .prescription__container {
+      background: #ffffff;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    .section__header {
+      font-size: 28px;
+      margin-bottom: 20px;
+      color: #16a085;
+    }
+
+    .prescription__form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      max-width: 400px;
+      margin: 20px auto;
+    }
+
+    .prescription__form input,
+    .prescription__form button {
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+    }
+
+    .prescription__form button {
+      background: #16a085;
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .prescription__form button:hover {
+      background: #13856b;
+    }
+
+    .prescription__list {
+      margin-top: 40px;
+      background: #ffffff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .prescription__list ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .prescription__list li {
+      background: #f1f1f1;
+      margin: 10px 0;
+      padding: 15px;
+      border-radius: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .prescription__list a {
+      text-decoration: none;
+      color: #16a085;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Upload Section -->
+  <section class="section__container prescription__container" id="prescription">
+    <h2 class="section__header">Upload Prescription</h2>
+    <p>Upload your prescription in PDF format.</p>
+    
+    <form class="prescription__form" id="prescriptionForm">
+      <input type="text" id="patientName" placeholder="Patient Name" required />
+      <input type="text" id="doctorName" placeholder="Doctor Name" required />
+      <input type="file" id="prescriptionFile" accept="application/pdf" required />
+      <button type="submit">Upload Prescription</button>
+    </form>
+  </section>
+
+  <!-- Prescription List -->
+  <section class="section__container prescription__list">
+    <h2 class="section__header">View Prescriptions</h2>
+    <ul id="prescriptionList">
+      <!-- JS will add prescriptions here -->
+    </ul>
+  </section>
+
+  <script>
+    const form = document.getElementById("prescriptionForm");
+    const prescriptionList = document.getElementById("prescriptionList");
+
+    form.addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      const patientName = document.getElementById("patientName").value;
+      const doctorName = document.getElementById("doctorName").value;
+      const fileInput = document.getElementById("prescriptionFile");
+      const file = fileInput.files[0];
+
+      if (!file || file.type !== "application/pdf") {
+        alert("Please upload a valid PDF file.");
+        return;
+      }
+
+      // Create new list item
+      const li = document.createElement("li");
+      li.innerHTML = `
+        <span><strong>${patientName}</strong> - ${doctorName}</span>
+        <a href="${URL.createObjectURL(file)}" target="_blank">View PDF</a>
+      `;
+
+      prescriptionList.appendChild(li);
+
+      // Reset form
+      form.reset();
+    });
+  </script>
+
+</body>
+</html>
