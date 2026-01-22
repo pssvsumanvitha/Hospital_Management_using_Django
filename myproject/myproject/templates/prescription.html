@@ -1,0 +1,132 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prescription Upload</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f7fa;
+      margin: 0;
+      padding: 0;
+    }
+
+    .section__container {
+      width: 90%;
+      max-width: 1000px;
+      margin: 40px auto;
+      padding: 40px;
+      border-radius: 12px;
+    }
+
+    .prescription__container {
+      background: #ffffff;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    .section__header {
+      font-size: 28px;
+      margin-bottom: 20px;
+      color: #16a085;
+    }
+
+    .prescription__form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      max-width: 400px;
+      margin: 20px auto;
+    }
+
+    .prescription__form input,
+    .prescription__form button {
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+    }
+
+    .prescription__form button {
+      background: #16a085;
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .prescription__form button:hover {
+      background: #13856b;
+    }
+
+    .prescription__list {
+      margin-top: 40px;
+      background: #ffffff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .prescription__list ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .prescription__list li {
+      background: #f1f1f1;
+      margin: 10px 0;
+      padding: 15px;
+      border-radius: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .prescription__list a {
+      text-decoration: none;
+      color: #16a085;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ✅ DJANGO MESSAGE POPUP -->
+  {% if messages %}
+    <script>
+      {% for message in messages %}
+        alert("{{ message }}");
+      {% endfor %}
+    </script>
+  {% endif %}
+
+  <!-- Upload Section -->
+  <section class="section__container prescription__container" id="prescription">
+    <h2 class="section__header">Upload Prescription</h2>
+    <p>Upload your prescription in PDF format.</p>
+
+    <!-- ✅ FIXED FORM FOR DJANGO BACKEND -->
+    <form class="prescription__form" method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+
+      <input type="text" name="patient_name" placeholder="Patient Name" required />
+      <input type="text" name="doctor_name" placeholder="Doctor Name" required />
+      <input type="file" name="file" accept="application/pdf" required />
+
+      <button type="submit">Upload Prescription</button>
+    </form>
+  </section>
+
+  <!-- Prescription List (kept for future backend display) -->
+  <section class="section__container prescription__list">
+    <h2 class="section__header">View Prescriptions</h2>
+    <ul>
+      <!-- Backend-rendered prescriptions can be shown here later -->
+    </ul>
+  </section>
+
+</body>
+</html>
