@@ -1,0 +1,381 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Prescriptions — HealthCare</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.4.0/fonts/remixicon.css" rel="stylesheet"/>
+  <style>
+    :root{
+      --navy:#07111f;--navy-mid:#0d1e35;--emerald:#0a8a72;--emerald-br:#0db896;
+      --gold:#c8a96e;--white:#fff;--muted:#7a92ad;
+      --border:rgba(255,255,255,0.08);--border-em:rgba(10,138,114,0.35);
+      --glass:rgba(7,17,31,.85);--card:rgba(255,255,255,.035);
+      --ff-display:'Playfair Display',serif;--ff-body:'Outfit',sans-serif;
+    }
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{font-family:var(--ff-body);background:var(--navy);color:var(--white);min-height:100vh}
+    ::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:var(--navy)}
+    ::-webkit-scrollbar-thumb{background:var(--emerald);border-radius:99px}
+
+    /* NAV */
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;
+      justify-content:space-between;padding:16px 60px;
+      background:var(--glass);backdrop-filter:blur(24px);border-bottom:1px solid var(--border)}
+    .nav-logo{font-family:var(--ff-display);font-size:20px;font-weight:700;text-decoration:none;color:#fff}
+    .nav-logo span{color:var(--emerald-br)}
+    .nav-right{display:flex;align-items:center;gap:16px}
+    .nav-user{font-size:13px;color:var(--gold);display:flex;align-items:center;gap:6px;font-weight:500}
+    .role-badge{font-size:10px;padding:2px 8px;border-radius:99px;
+      background:rgba(10,138,114,.2);border:1px solid var(--border-em);
+      color:var(--emerald-br);font-weight:600;letter-spacing:1px;text-transform:uppercase}
+    .btn-sm{padding:8px 18px;background:var(--emerald);color:#fff;border:none;
+      border-radius:6px;font-size:12.5px;font-weight:600;cursor:pointer;
+      font-family:var(--ff-body);text-decoration:none;display:inline-flex;align-items:center;gap:6px;
+      transition:background .2s}
+    .btn-sm:hover{background:var(--emerald-br)}
+    .btn-sm-ghost{padding:8px 18px;background:transparent;color:rgba(255,255,255,.7);
+      border:1px solid var(--border);border-radius:6px;font-size:12.5px;font-weight:500;
+      cursor:pointer;font-family:var(--ff-body);text-decoration:none;
+      display:inline-flex;align-items:center;gap:6px;transition:border-color .2s,color .2s}
+    .btn-sm-ghost:hover{border-color:rgba(255,255,255,.3);color:#fff}
+
+    /* MAIN LAYOUT */
+    .main{max-width:1100px;margin:0 auto;padding:100px 40px 80px}
+
+    /* PAGE HEADER */
+    .page-header{margin-bottom:48px}
+    .eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:600;
+      letter-spacing:2px;text-transform:uppercase;color:var(--emerald-br);margin-bottom:12px}
+    .eyebrow::before{content:'';width:22px;height:1px;background:var(--emerald-br)}
+    .page-header h1{font-family:var(--ff-display);font-size:clamp(28px,3.5vw,44px);font-weight:400;margin-bottom:10px}
+    .page-header p{font-size:14.5px;color:var(--muted);max-width:500px;line-height:1.75}
+
+    /* UPLOAD AREA */
+    .upload-section{
+      background:var(--card);border:1px solid var(--border);border-radius:20px;
+      padding:40px 44px;margin-bottom:40px;
+    }
+    .upload-section h3{font-family:var(--ff-display);font-size:22px;font-weight:500;margin-bottom:6px}
+    .upload-section>p{font-size:13.5px;color:var(--muted);margin-bottom:32px}
+
+    .upload-form-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:18px}
+    .inp-group label{display:block;font-size:11.5px;font-weight:600;letter-spacing:.8px;
+      text-transform:uppercase;color:var(--muted);margin-bottom:7px}
+    .inp-group input{width:100%;padding:12px 14px;
+      background:rgba(255,255,255,.06);border:1px solid var(--border);border-radius:8px;
+      color:#fff;font-size:13.5px;outline:none;font-family:var(--ff-body);transition:border-color .2s}
+    .inp-group input::placeholder{color:rgba(255,255,255,.3)}
+    .inp-group input:focus{border-color:var(--emerald)}
+
+    /* Drag-drop file zone */
+    .file-drop{
+      border:2px dashed var(--border);border-radius:12px;padding:32px 24px;text-align:center;
+      cursor:pointer;transition:border-color .2s,background .2s;position:relative;margin-bottom:22px;
+    }
+    .file-drop:hover,.file-drop.drag-over{
+      border-color:var(--emerald-br);background:rgba(10,138,114,.07)
+    }
+    .file-drop input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+    .file-drop i{font-size:36px;color:var(--muted);margin-bottom:12px;display:block}
+    .file-drop .drop-text{font-size:14px;color:rgba(255,255,255,.6);margin-bottom:4px}
+    .file-drop .drop-hint{font-size:12px;color:var(--muted)}
+    .file-drop .file-name{
+      margin-top:10px;font-size:13px;color:var(--emerald-br);font-weight:500;
+      display:none
+    }
+
+    .btn-upload{
+      padding:13px 30px;background:var(--emerald);color:#fff;border:none;
+      border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;
+      font-family:var(--ff-body);display:inline-flex;align-items:center;gap:8px;
+      transition:background .2s,transform .15s,box-shadow .2s
+    }
+    .btn-upload:hover{background:var(--emerald-br);transform:translateY(-1px);
+      box-shadow:0 10px 28px rgba(10,138,114,.35)}
+
+    /* PRIVILEGE NOTICE */
+    .privilege-notice{
+      background:rgba(10,138,114,.08);border:1px solid var(--border-em);
+      border-radius:12px;padding:16px 20px;margin-bottom:32px;
+      display:flex;align-items:center;gap:12px;font-size:13.5px;
+    }
+    .privilege-notice i{font-size:20px;color:var(--emerald-br);flex-shrink:0}
+    .privilege-notice strong{color:var(--emerald-br)}
+
+    /* PRESCRIPTIONS LIST */
+    .list-section h3{font-family:var(--ff-display);font-size:22px;font-weight:500;margin-bottom:6px}
+    .list-section>p{font-size:13.5px;color:var(--muted);margin-bottom:24px}
+
+    .presc-table-wrap{overflow-x:auto}
+    .presc-table{width:100%;border-collapse:collapse}
+    .presc-table th{
+      font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;
+      color:var(--muted);padding:12px 16px;text-align:left;
+      border-bottom:1px solid var(--border);white-space:nowrap
+    }
+    .presc-table td{
+      padding:16px 16px;font-size:13.5px;border-bottom:1px solid rgba(255,255,255,.04);
+      vertical-align:middle;
+    }
+    .presc-table tr:last-child td{border-bottom:none}
+    .presc-table tr:hover td{background:rgba(255,255,255,.03)}
+    .presc-table .file-icon{
+      width:36px;height:36px;background:rgba(10,138,114,.15);border-radius:8px;
+      display:flex;align-items:center;justify-content:center;flex-shrink:0
+    }
+    .presc-table .file-icon i{font-size:18px;color:var(--emerald-br)}
+    .presc-table .file-cell{display:flex;align-items:center;gap:12px}
+    .presc-table .file-cell .fname{font-weight:500;color:#fff}
+    .presc-table .file-cell .fsize{font-size:12px;color:var(--muted);margin-top:1px}
+    .btn-dl{
+      display:inline-flex;align-items:center;gap:6px;padding:7px 14px;
+      background:rgba(10,138,114,.15);border:1px solid var(--border-em);
+      border-radius:6px;font-size:12px;font-weight:600;color:var(--emerald-br);
+      text-decoration:none;transition:background .2s,color .2s
+    }
+    .btn-dl:hover{background:var(--emerald);color:#fff}
+
+    .badge-owner{
+      display:inline-flex;align-items:center;gap:5px;font-size:11.5px;
+      background:rgba(200,169,110,.1);border:1px solid rgba(200,169,110,.3);
+      border-radius:99px;padding:3px 10px;color:var(--gold)
+    }
+
+    .empty-state{
+      padding:60px 24px;text-align:center;
+      background:var(--card);border:1px solid var(--border);border-radius:16px
+    }
+    .empty-state i{font-size:48px;color:var(--muted);margin-bottom:16px;display:block}
+    .empty-state h4{font-family:var(--ff-display);font-size:20px;margin-bottom:8px}
+    .empty-state p{font-size:13.5px;color:var(--muted)}
+
+    /* Toasts */
+    .toast-wrap{position:fixed;top:24px;right:24px;z-index:9999;display:flex;flex-direction:column;gap:10px}
+    .toast{
+      background:#0d1e35;border-radius:12px;padding:14px 18px;min-width:260px;
+      display:flex;align-items:center;gap:10px;box-shadow:0 12px 40px rgba(0,0,0,.4);
+      animation:fadeUp .4s ease both;border:1px solid var(--border-em);
+    }
+    .toast.error{border-color:rgba(231,76,60,.4)}
+    .toast i{font-size:18px;color:var(--emerald-br);flex-shrink:0}
+    .toast.error i{color:#ff8f85}
+    .toast p{font-size:13px;color:#fff;flex:1}
+    .toast .close{background:none;border:none;color:var(--muted);cursor:pointer;font-size:17px;padding:0}
+
+    @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+    .fu{animation:fadeUp .65s ease both}
+    .d1{animation-delay:.05s}.d2{animation-delay:.15s}.d3{animation-delay:.25s}
+
+    .reveal{opacity:0;transform:translateY(22px);transition:opacity .6s ease,transform .6s ease}
+    .reveal.in{opacity:1;transform:translateY(0)}
+
+    @media(max-width:768px){
+      nav{padding:14px 20px}
+      .main{padding:90px 18px 60px}
+      .upload-form-grid{grid-template-columns:1fr}
+      .upload-section{padding:28px 22px}
+    }
+  </style>
+</head>
+<body>
+
+<!-- TOASTS -->
+{% if messages %}
+<div class="toast-wrap">
+  {% for message in messages %}
+  <div class="toast {% if 'error' in message.tags %}error{% endif %}">
+    <i class="ri-{% if 'error' in message.tags %}error-warning{% else %}checkbox-circle{% endif %}-line"></i>
+    <p>{{ message }}</p>
+    <button class="close" onclick="this.closest('.toast').remove()">×</button>
+  </div>
+  {% endfor %}
+</div>
+<script>setTimeout(()=>{document.querySelectorAll('.toast').forEach(t=>t.remove())},5000)</script>
+{% endif %}
+
+<!-- NAV -->
+<nav>
+  <a href="{% url 'home' %}" class="nav-logo">Health<span>Care</span></a>
+  <div class="nav-right">
+    {% if request.session.username %}
+      <span class="nav-user"><i class="ri-user-3-line"></i>{{ request.session.username }}</span>
+      {% if request.session.role %}<span class="role-badge">{{ request.session.role }}</span>{% endif %}
+      {% if request.session.role == 'doctor' or request.session.role == 'admin' %}
+        <a href="{% url 'dashboard' %}" class="btn-sm-ghost"><i class="ri-dashboard-line"></i> Dashboard</a>
+      {% endif %}
+      <a href="{% url 'logout' %}" class="btn-sm-ghost"><i class="ri-logout-box-line"></i> Logout</a>
+    {% else %}
+      <a href="{% url 'login' %}" class="btn-sm"><i class="ri-login-box-line"></i> Login</a>
+    {% endif %}
+    <a href="{% url 'home' %}" class="btn-sm-ghost"><i class="ri-arrow-left-line"></i> Home</a>
+  </div>
+</nav>
+
+<main class="main">
+  <!-- PAGE HEADER -->
+  <div class="page-header fu d1">
+    <div class="eyebrow">
+      {% if is_privileged %}<i class="ri-shield-star-line"></i> Privileged Access
+      {% else %}<i class="ri-file-text-line"></i> My Prescriptions{% endif %}
+    </div>
+    <h1>
+      {% if is_privileged %}All Patient<strong> Prescriptions</strong>
+      {% else %}My <strong>Prescriptions</strong>{% endif %}
+    </h1>
+    <p>
+      {% if is_privileged %}
+        As a {{ request.session.role }}, you have full visibility into all uploaded patient prescriptions.
+      {% else %}
+        Upload and manage your prescription files securely. Only you can access your files.
+      {% endif %}
+    </p>
+  </div>
+
+  <!-- PRIVILEGE NOTICE -->
+  {% if is_privileged %}
+  <div class="privilege-notice reveal">
+    <i class="ri-eye-line"></i>
+    <div>
+      <strong>Elevated Access Active</strong> — You are viewing all patient records as a
+      <strong>{{ request.session.role }}</strong>. Patient records are isolated from each other.
+    </div>
+  </div>
+  {% endif %}
+
+  <!-- UPLOAD FORM -->
+  <div class="upload-section reveal">
+    <h3><i class="ri-upload-cloud-2-line" style="color:var(--emerald-br);margin-right:10px"></i>Upload New Prescription</h3>
+    <p>Upload a PDF prescription. Files are stored securely in the database.</p>
+
+    <form method="POST" enctype="multipart/form-data" id="uploadForm">
+      {% csrf_token %}
+      <div class="upload-form-grid">
+        <div class="inp-group">
+          <label>Patient Name</label>
+          <input type="text" name="patient_name" placeholder="Full name of patient" required/>
+        </div>
+        <div class="inp-group">
+          <label>Doctor Name</label>
+          <input type="text" name="doctor_name" placeholder="Prescribing doctor" required/>
+        </div>
+      </div>
+
+      <div class="file-drop" id="dropZone">
+        <input type="file" name="file" id="fileInput" accept="application/pdf,.pdf" required
+          onchange="showFileName(this)"/>
+        <i class="ri-file-pdf-line" id="dropIcon"></i>
+        <div class="drop-text" id="dropText">Drag & drop your PDF here, or <span style="color:var(--emerald-br);font-weight:600">browse</span></div>
+        <div class="drop-hint" id="dropHint">Accepts PDF files · Max 10 MB</div>
+        <div class="file-name" id="fileName"></div>
+      </div>
+
+      <button type="submit" class="btn-upload">
+        <i class="ri-upload-2-line"></i> Upload Prescription
+      </button>
+    </form>
+  </div>
+
+  <!-- PRESCRIPTIONS LIST -->
+  <div class="list-section reveal">
+    <h3>
+      {% if is_privileged %}All Uploaded Prescriptions
+      {% else %}Your Uploaded Prescriptions{% endif %}
+    </h3>
+    <p>
+      {% if is_privileged %}
+        {{ prescriptions|length }} prescription(s) on record across all patients.
+      {% else %}
+        {{ prescriptions|length }} prescription(s) uploaded by you.
+      {% endif %}
+    </p>
+
+    {% if prescriptions %}
+    <div class="presc-table-wrap">
+      <table class="presc-table">
+        <thead>
+          <tr>
+            <th>File</th>
+            <th>Patient</th>
+            <th>Doctor</th>
+            {% if is_privileged %}<th>Uploaded By</th>{% endif %}
+            <th>Date</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for rx in prescriptions %}
+          <tr>
+            <td>
+              <div class="file-cell">
+                <div class="file-icon"><i class="ri-file-pdf-line"></i></div>
+                <div>
+                  <div class="fname">{{ rx.file_name }}</div>
+                  <div class="fsize">PDF Document</div>
+                </div>
+              </div>
+            </td>
+            <td>{{ rx.patient_name }}</td>
+            <td>{{ rx.doctor_name }}</td>
+            {% if is_privileged %}
+            <td>
+              <span class="badge-owner"><i class="ri-user-line"></i>{{ rx.user.username|default:rx.user.email }}</span>
+            </td>
+            {% endif %}
+            <td style="color:var(--muted);white-space:nowrap">{{ rx.uploaded_at|date:"d M Y, H:i" }}</td>
+            <td>
+              <a href="{% url 'download_prescription' rx.pk %}" class="btn-dl">
+                <i class="ri-download-2-line"></i> Download
+              </a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% else %}
+    <div class="empty-state">
+      <i class="ri-folder-open-line"></i>
+      <h4>No prescriptions yet</h4>
+      <p>Upload your first prescription using the form above.</p>
+    </div>
+    {% endif %}
+  </div>
+</main>
+
+<script>
+  // File drop UX
+  const dropZone = document.getElementById('dropZone');
+  const fileInput = document.getElementById('fileInput');
+  const dropIcon = document.getElementById('dropIcon');
+  const dropText = document.getElementById('dropText');
+  const dropHint = document.getElementById('dropHint');
+  const fileNameEl = document.getElementById('fileName');
+
+  function showFileName(input){
+    if(input.files && input.files[0]){
+      const name = input.files[0].name;
+      fileNameEl.textContent = '✓ ' + name;
+      fileNameEl.style.display = 'block';
+      dropIcon.style.color = 'var(--emerald-br)';
+      dropText.style.color = 'var(--white)';
+    }
+  }
+  ['dragenter','dragover'].forEach(e=>dropZone.addEventListener(e,ev=>{ev.preventDefault();dropZone.classList.add('drag-over')}));
+  ['dragleave','drop'].forEach(e=>dropZone.addEventListener(e,ev=>{ev.preventDefault();dropZone.classList.remove('drag-over')}));
+  dropZone.addEventListener('drop',e=>{
+    const files=e.dataTransfer.files;
+    if(files.length){fileInput.files=files;showFileName(fileInput)}
+  });
+
+  // Scroll reveal
+  const obs = new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target)}}),{threshold:.1});
+  document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
