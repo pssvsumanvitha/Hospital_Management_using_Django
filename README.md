@@ -21,7 +21,7 @@ secure prescription management, and an admin dashboard.**
 
 > **Home Page — Hero Section**
 
-![Home Page Hero](screenshots/home-hero.png)
+![Home Page Hero](home.png)
 
 > *The landing page with appointment booking form, statistics, and navigation tailored to the logged-in user's role.*
 
@@ -191,7 +191,7 @@ class Appointment(models.Model):
 
 ### 🏠 Home Page
 
-![Home Page](<img width="1920" height="1080" alt="Screenshot (198)" src="https://github.com/user-attachments/assets/2cfbdf73-b405-4273-9f91-3615e7dcd68b" />)
+![Home Page](home.png)
 
 
 *Landing page with video background, appointment booking form, and role-aware navigation.*
@@ -200,7 +200,7 @@ class Appointment(models.Model):
 
 ### 🔐 Login Page
 
-![Login Page](screenshots/login.png)
+![Login Page](login.png)
 
 *Split-panel login with branding on the left and secure form on the right. Includes show/hide password toggle.*
 
@@ -208,51 +208,15 @@ class Appointment(models.Model):
 
 ### 📝 Register Page
 
-![Register Page](screenshots/register.png)
+![Register Page](signup.png)
 
 *Registration form with the role selector — users pick Patient, Doctor, or Admin when signing up.*
 
----
-
-### 📄 Prescription Page — Patient View
-
-![Prescription Patient View](screenshots/prescription-patient.png)
-
-*Patients can upload prescriptions via drag & drop and only see their own uploaded files.*
-
----
-
-### 📄 Prescription Page — Doctor/Admin View
-
-![Prescription Admin View](screenshots/prescription-admin.png)
-
-*Doctors and admins see all patient prescriptions with an "Uploaded By" column and download access.*
-
----
-
 ### 📊 Admin Dashboard
 
-![Admin Dashboard](screenshots/dashboard.png)
+![Admin Dashboard](dashboard.png)
 
 *The full dashboard with sidebar navigation, stat cards, and tabbed tables for patients, appointments, and prescriptions.*
-
----
-
-### 📊 Dashboard — Patients Tab
-
-![Dashboard Patients](screenshots/dashboard-patients.png)
-
-*All registered patients listed with live search/filter functionality.*
-
----
-
-### 📊 Dashboard — Prescriptions Tab
-
-![Dashboard Prescriptions](screenshots/dashboard-prescriptions.png)
-
-*Every prescription across all patients with download buttons and ownership info.*
-
----
 
 ## 🚀 Getting Started
 
