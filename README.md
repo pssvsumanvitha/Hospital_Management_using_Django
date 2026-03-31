@@ -192,7 +192,8 @@ class Appointment(models.Model):
 
 ### 🏠 Home Page
 
-![Home Page](screenshots/home-hero.png)
+![Home Page](<img width="1920" height="1080" alt="Screenshot (198)" src="https://github.com/user-attachments/assets/2cfbdf73-b405-4273-9f91-3615e7dcd68b" />)
+
 
 *Landing page with video background, appointment booking form, and role-aware navigation.*
 
