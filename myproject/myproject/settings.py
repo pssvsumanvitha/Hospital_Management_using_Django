@@ -9,8 +9,10 @@ https://docs.djangoproject.com/en/5.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
+from pathlib import Path
 import os
 import pymysql
+from cryptography.hazmat.backends import default_backend
 import dj_database_url
 
 pymysql.install_as_MySQLdb()
