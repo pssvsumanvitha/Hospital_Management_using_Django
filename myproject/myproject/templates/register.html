@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Register — HealthCare</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.4.0/fonts/remixicon.css" rel="stylesheet"/>
+  <style>
+    :root{
+      --navy:#07111f;--navy-mid:#0d1e35;--emerald:#0a8a72;--emerald-br:#0db896;
+      --gold:#c8a96e;--white:#fff;--muted:#7a92ad;
+      --border:rgba(255,255,255,0.08);--border-em:rgba(10,138,114,0.35);
+      --ff-display:'Playfair Display',serif;--ff-body:'Outfit',sans-serif;
+    }
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+    body{
+      font-family:var(--ff-body);background:var(--navy);color:var(--white);
+      min-height:100vh;display:grid;grid-template-columns:1fr 1fr;overflow:hidden;
+    }
+
+    /* Left panel */
+    .left-panel{
+      position:relative;display:flex;flex-direction:column;
+      justify-content:flex-end;padding:56px;overflow:hidden;background:var(--navy-mid);
+    }
+    .left-panel::before{
+      content:'';position:absolute;inset:0;
+      background:url(/static/images/image.jpg) center/cover no-repeat;opacity:.2;
+    }
+    .left-panel::after{
+      content:'';position:absolute;inset:0;
+      background:linear-gradient(to top,rgba(7,17,31,.97) 0%,rgba(7,17,31,.35) 60%,transparent 100%);
+    }
+    .left-logo{
+      position:absolute;top:48px;left:56px;z-index:1;
+      font-family:var(--ff-display);font-size:22px;font-weight:700;
+    }
+    .left-logo span{color:var(--emerald-br)}
+    .left-content{position:relative;z-index:1}
+    .left-content h2{
+      font-family:var(--ff-display);font-size:clamp(26px,3vw,40px);
+      font-weight:400;line-height:1.2;margin-bottom:16px;
+    }
+    .left-content p{font-size:14px;color:var(--muted);line-height:1.8;max-width:340px;margin-bottom:28px}
+    .feature-list{display:flex;flex-direction:column;gap:12px}
+    .feat-item{display:flex;align-items:center;gap:12px;font-size:13.5px;color:rgba(255,255,255,.75)}
+    .feat-item i{
+      width:30px;height:30px;background:rgba(10,138,114,.2);
+      border-radius:8px;display:flex;align-items:center;justify-content:center;
+      font-size:15px;color:var(--emerald-br);flex-shrink:0;
+    }
+
+    /* Right panel */
+    .right-panel{
+      display:flex;align-items:center;justify-content:center;
+      padding:48px 56px;overflow-y:auto;background:var(--navy);
+    }
+    .form-wrap{width:100%;max-width:400px}
+    .form-header{margin-bottom:32px}
+    .eyebrow{
+      display:inline-flex;align-items:center;gap:8px;
+      font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;
+      color:var(--emerald-br);margin-bottom:12px;
+    }
+    .eyebrow::before{content:'';width:22px;height:1px;background:var(--emerald-br)}
+    .form-header h1{font-family:var(--ff-display);font-size:clamp(26px,3vw,34px);font-weight:500;margin-bottom:6px}
+    .form-header p{font-size:13px;color:var(--muted)}
+
+    .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+    .input-group{margin-bottom:16px}
+    .input-group label{
+      display:block;font-size:11.5px;font-weight:600;letter-spacing:.8px;
+      text-transform:uppercase;color:var(--muted);margin-bottom:7px;
+    }
+    .input-wrap{position:relative;display:flex;align-items:center}
+    .input-wrap i.prefix{
+      position:absolute;left:13px;font-size:16px;color:var(--muted);pointer-events:none;transition:color .2s;
+    }
+    .input-wrap input,.input-wrap select{
+      width:100%;padding:12px 13px 12px 38px;
+      background:rgba(255,255,255,.05);border:1px solid var(--border);
+      border-radius:8px;color:#fff;font-size:13.5px;outline:none;
+      font-family:var(--ff-body);transition:border-color .2s,background .2s;
+    }
+    .input-wrap select option{background:var(--navy-mid);color:#fff}
+    .input-wrap input::placeholder{color:rgba(255,255,255,.3)}
+    .input-wrap input:focus,.input-wrap select:focus{
+      border-color:var(--emerald);background:rgba(10,138,114,.07)
+    }
+    .input-group:focus-within .prefix{color:var(--emerald-br)}
+    .eye-toggle{
+      position:absolute;right:12px;background:none;border:none;
+      cursor:pointer;color:var(--muted);font-size:16px;padding:0;transition:color .2s;
+    }
+    .eye-toggle:hover{color:var(--white)}
+
+    /* Role selector */
+    .role-selector{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:18px}
+    .role-option{position:relative}
+    .role-option input[type=radio]{position:absolute;opacity:0;width:0;height:0}
+    .role-card{
+      display:flex;flex-direction:column;align-items:center;gap:6px;padding:12px 8px;
+      background:rgba(255,255,255,.04);border:1.5px solid var(--border);border-radius:10px;
+      cursor:pointer;transition:all .2s;text-align:center;
+    }
+    .role-card i{font-size:22px;color:var(--muted);transition:color .2s}
+    .role-card span{font-size:11.5px;font-weight:600;color:var(--muted);letter-spacing:.5px;text-transform:uppercase;transition:color .2s}
+    .role-option input:checked ~ .role-card{
+      border-color:var(--emerald);background:rgba(10,138,114,.12);
+    }
+    .role-option input:checked ~ .role-card i,
+    .role-option input:checked ~ .role-card span{color:var(--emerald-br)}
+
+    .terms-row{display:flex;align-items:flex-start;gap:10px;margin-bottom:22px}
+    .terms-row input[type=checkbox]{accent-color:var(--emerald);width:15px;height:15px;margin-top:2px;cursor:pointer;flex-shrink:0}
+    .terms-row label{font-size:12.5px;color:var(--muted);line-height:1.6;cursor:pointer}
+    .terms-row label a{color:var(--emerald-br);text-decoration:none}
+
+    .btn-submit{
+      width:100%;padding:14px;background:var(--emerald);color:#fff;border:none;
+      border-radius:8px;font-size:15px;font-weight:600;cursor:pointer;
+      font-family:var(--ff-body);display:flex;align-items:center;justify-content:center;gap:8px;
+      transition:background .2s,transform .15s,box-shadow .2s;
+    }
+    .btn-submit:hover{background:var(--emerald-br);transform:translateY(-2px);box-shadow:0 12px 32px rgba(10,138,114,.35)}
+
+    .login-prompt{text-align:center;margin-top:20px;font-size:13.5px;color:var(--muted)}
+    .login-prompt a{color:var(--emerald-br);font-weight:600;text-decoration:none;transition:color .2s}
+    .login-prompt a:hover{color:#fff}
+
+    .msg-list{margin-bottom:18px;display:flex;flex-direction:column;gap:8px}
+    .msg-item{
+      display:flex;align-items:center;gap:10px;padding:11px 13px;border-radius:8px;font-size:13px;
+      background:rgba(231,76,60,.1);border:1px solid rgba(231,76,60,.3);color:#ff8f85;
+    }
+    .msg-item.success{background:rgba(10,138,114,.1);border-color:var(--border-em);color:var(--emerald-br)}
+    .msg-item i{font-size:15px;flex-shrink:0}
+
+    @keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+    .fu{animation:fadeUp .65s ease both}
+    .d1{animation-delay:.05s}.d2{animation-delay:.12s}.d3{animation-delay:.19s}
+    .d4{animation-delay:.26s}.d5{animation-delay:.33s}
+
+    @media(max-width:768px){
+      body{grid-template-columns:1fr}
+      .left-panel{display:none}
+      .right-panel{padding:28px 20px;align-items:flex-start;padding-top:40px}
+    }
+    @media(max-width:400px){.grid-2{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+
+<!-- LEFT PANEL -->
+<div class="left-panel">
+  <a href="/" class="left-logo">Health<span>Care</span></a>
+  <div class="left-content">
+    <h2>Join Our<br><strong>Healthcare Community</strong></h2>
+    <p>Create your account and get access to your personal health dashboard, prescription uploads, and appointment booking.</p>
+    <div class="feature-list">
+      <div class="feat-item"><i class="ri-file-text-line"></i> Upload & manage prescriptions securely</div>
+      <div class="feat-item"><i class="ri-calendar-check-line"></i> Book appointments with top specialists</div>
+      <div class="feat-item"><i class="ri-lock-password-line"></i> Your data is private & encrypted</div>
+      <div class="feat-item"><i class="ri-24-hours-line"></i> 24/7 access to your health records</div>
+    </div>
+  </div>
+</div>
+
+<!-- RIGHT PANEL -->
+<div class="right-panel">
+  <div class="form-wrap">
+    <div class="form-header fu d1">
+      <div class="eyebrow">New Account</div>
+      <h1>Create Account</h1>
+      <p>Fill in the details below to get started.</p>
+    </div>
+
+    {% if messages %}
+    <div class="msg-list fu d2">
+      {% for message in messages %}
+      <div class="msg-item {% if 'success' in message.tags %}success{% endif %}">
+        <i class="ri-{% if 'success' in message.tags %}checkbox-circle{% else %}error-warning{% endif %}-line"></i>
+        {{ message }}
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+
+    <form method="POST" action="{% url 'register' %}">
+      {% csrf_token %}
+
+      <div class="grid-2 fu d2">
+        <div class="input-group">
+          <label>Full Name</label>
+          <div class="input-wrap">
+            <input type="text" name="fullname" placeholder="John Doe" required/>
+            <i class="ri-user-line prefix"></i>
+          </div>
+        </div>
+        <div class="input-group">
+          <label>Username</label>
+          <div class="input-wrap">
+            <input type="text" name="username" placeholder="johndoe" required/>
+            <i class="ri-at-line prefix"></i>
+          </div>
+        </div>
+      </div>
+
+      <div class="input-group fu d3">
+        <label>Email Address</label>
+        <div class="input-wrap">
+          <input type="email" name="email" placeholder="you@example.com" required/>
+          <i class="ri-mail-line prefix"></i>
+        </div>
+      </div>
+
+      <div class="grid-2 fu d3">
+        <div class="input-group">
+          <label>Password</label>
+          <div class="input-wrap">
+            <input type="password" name="password" id="pwd1" placeholder="Min. 8 characters" required/>
+            <i class="ri-lock-line prefix"></i>
+            <button type="button" class="eye-toggle" onclick="togglePwd('pwd1','eye1')">
+              <i class="ri-eye-off-line" id="eye1"></i>
+            </button>
+          </div>
+        </div>
+        <div class="input-group">
+          <label>Confirm Password</label>
+          <div class="input-wrap">
+            <input type="password" name="confirm_password" id="pwd2" placeholder="Repeat password" required/>
+            <i class="ri-lock-line prefix"></i>
+            <button type="button" class="eye-toggle" onclick="togglePwd('pwd2','eye2')">
+              <i class="ri-eye-off-line" id="eye2"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ROLE SELECTOR -->
+      <div class="input-group fu d4">
+        <label>Account Type</label>
+        <div class="role-selector">
+          <label class="role-option">
+            <input type="radio" name="role" value="patient" checked/>
+            <div class="role-card">
+              <i class="ri-user-heart-line"></i>
+              <span>Patient</span>
+            </div>
+          </label>
+          <label class="role-option">
+            <input type="radio" name="role" value="doctor"/>
+            <div class="role-card">
+              <i class="ri-stethoscope-line"></i>
+              <span>Doctor</span>
+            </div>
+          </label>
+          <label class="role-option">
+            <input type="radio" name="role" value="admin"/>
+            <div class="role-card">
+              <i class="ri-shield-star-line"></i>
+              <span>Admin</span>
+            </div>
+          </label>
+        </div>
+      </div>
+
+      <div class="terms-row fu d4">
+        <input type="checkbox" id="terms" required/>
+        <label for="terms">
+          I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.
+          I confirm the information provided is accurate.
+        </label>
+      </div>
+
+      <button type="submit" class="btn-submit fu d5">
+        <i class="ri-user-add-line"></i> Create Account
+      </button>
+    </form>
+
+    <div class="login-prompt fu d5">
+      Already have an account? <a href="{% url 'login' %}">Sign In</a>
+    </div>
+  </div>
+</div>
+
+<script>
+  function togglePwd(id, iconId){
+    const p=document.getElementById(id);
+    const i=document.getElementById(iconId);
+    if(p.type==='password'){p.type='text';i.className='ri-eye-line';}
+    else{p.type='password';i.className='ri-eye-off-line';}
+  }
+</script>
+</body>
+</html>

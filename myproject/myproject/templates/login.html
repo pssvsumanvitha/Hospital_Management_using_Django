@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login — HealthCare</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.4.0/fonts/remixicon.css" rel="stylesheet"/>
+  <style>
+    :root{
+      --navy:#07111f;--navy-mid:#0d1e35;--emerald:#0a8a72;--emerald-br:#0db896;
+      --gold:#c8a96e;--white:#fff;--muted:#7a92ad;
+      --border:rgba(255,255,255,0.08);--border-em:rgba(10,138,114,0.35);
+      --ff-display:'Playfair Display',serif;--ff-body:'Outfit',sans-serif;
+    }
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+    body{
+      font-family:var(--ff-body);background:var(--navy);color:var(--white);
+      min-height:100vh;display:grid;grid-template-columns:1fr 1fr;
+      overflow:hidden;
+    }
+
+    /* Left panel */
+    .left-panel{
+      position:relative;display:flex;flex-direction:column;
+      justify-content:flex-end;padding:56px;overflow:hidden;
+      background:var(--navy-mid);
+    }
+    .left-panel::before{
+      content:'';position:absolute;inset:0;
+      background:url(/static/images/image.jpg) center/cover no-repeat;
+      opacity:.25;
+    }
+    .left-panel::after{
+      content:'';position:absolute;inset:0;
+      background:linear-gradient(to top,rgba(7,17,31,.95) 0%,rgba(7,17,31,.4) 60%,transparent 100%);
+    }
+    .left-content{position:relative;z-index:1}
+    .left-logo{
+      position:absolute;top:48px;left:56px;z-index:1;
+      font-family:var(--ff-display);font-size:22px;font-weight:700;
+    }
+    .left-logo span{color:var(--emerald-br)}
+    .left-badge{
+      display:inline-flex;align-items:center;gap:8px;
+      background:rgba(10,138,114,.15);border:1px solid var(--border-em);
+      border-radius:99px;padding:6px 14px;
+      font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;
+      color:var(--emerald-br);margin-bottom:18px;width:fit-content;
+    }
+    .left-content h2{
+      font-family:var(--ff-display);font-size:clamp(28px,3.5vw,42px);
+      font-weight:400;line-height:1.2;margin-bottom:16px;
+    }
+    .left-content p{font-size:14px;color:var(--muted);line-height:1.8;max-width:360px}
+    .left-stats{display:flex;gap:32px;margin-top:32px;padding-top:28px;
+      border-top:1px solid var(--border)}
+    .ls-num{font-family:var(--ff-display);font-size:28px;font-weight:700;color:var(--emerald-br);line-height:1}
+    .ls-lbl{font-size:11px;color:var(--muted);margin-top:3px;letter-spacing:.5px}
+
+    /* Right panel */
+    .right-panel{
+      display:flex;align-items:center;justify-content:center;
+      padding:48px 56px;position:relative;background:var(--navy);
+    }
+    .form-wrap{width:100%;max-width:380px}
+    .form-header{margin-bottom:36px}
+    .form-header .eyebrow{
+      display:inline-flex;align-items:center;gap:8px;
+      font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;
+      color:var(--emerald-br);margin-bottom:12px;
+    }
+    .form-header .eyebrow::before{content:'';width:22px;height:1px;background:var(--emerald-br)}
+    .form-header h1{
+      font-family:var(--ff-display);font-size:clamp(28px,3vw,36px);
+      font-weight:500;margin-bottom:8px;
+    }
+    .form-header p{font-size:13.5px;color:var(--muted)}
+
+    .input-group{margin-bottom:18px;position:relative}
+    .input-group label{
+      display:block;font-size:12px;font-weight:600;letter-spacing:.8px;
+      text-transform:uppercase;color:var(--muted);margin-bottom:8px;
+    }
+    .input-wrap{position:relative}
+    .input-wrap i{
+      position:absolute;left:14px;top:50%;transform:translateY(-50%);
+      font-size:17px;color:var(--muted);pointer-events:none;transition:color .2s;
+    }
+    .input-wrap input{
+      width:100%;padding:13px 14px 13px 42px;
+      background:rgba(255,255,255,.05);border:1px solid var(--border);
+      border-radius:8px;color:#fff;font-size:14px;outline:none;
+      font-family:var(--ff-body);transition:border-color .2s,background .2s;
+    }
+    .input-wrap input::placeholder{color:rgba(255,255,255,.3)}
+    .input-wrap input:focus{border-color:var(--emerald);background:rgba(10,138,114,.07)}
+    .input-wrap input:focus + i,
+    .input-group:focus-within .input-wrap i{color:var(--emerald-br)}
+
+    /* eye toggle */
+    .eye-toggle{
+      position:absolute;right:14px;top:50%;transform:translateY(-50%);
+      background:none;border:none;cursor:pointer;
+      color:var(--muted);font-size:17px;padding:0;transition:color .2s;
+    }
+    .eye-toggle:hover{color:var(--white)}
+
+    .options-row{
+      display:flex;justify-content:space-between;align-items:center;
+      margin-bottom:24px;
+    }
+    .remember{display:flex;align-items:center;gap:8px;cursor:pointer;font-size:13px;color:var(--muted)}
+    .remember input[type=checkbox]{accent-color:var(--emerald);width:14px;height:14px;cursor:pointer}
+    .forgot-link{font-size:13px;color:var(--emerald-br);text-decoration:none;transition:color .2s}
+    .forgot-link:hover{color:var(--white)}
+
+    .btn-submit{
+      width:100%;padding:14px;background:var(--emerald);color:#fff;border:none;
+      border-radius:8px;font-size:15px;font-weight:600;cursor:pointer;
+      font-family:var(--ff-body);display:flex;align-items:center;justify-content:center;gap:8px;
+      transition:background .2s,transform .15s,box-shadow .2s;
+    }
+    .btn-submit:hover{
+      background:var(--emerald-br);transform:translateY(-2px);
+      box-shadow:0 12px 32px rgba(10,138,114,.35);
+    }
+
+    .divider{display:flex;align-items:center;gap:12px;margin:24px 0}
+    .divider::before,.divider::after{content:'';flex:1;height:1px;background:var(--border)}
+    .divider span{font-size:11.5px;color:var(--muted);white-space:nowrap}
+
+    .register-prompt{text-align:center;font-size:13.5px;color:var(--muted)}
+    .register-prompt a{color:var(--emerald-br);font-weight:600;text-decoration:none;transition:color .2s}
+    .register-prompt a:hover{color:#fff}
+
+    /* Messages */
+    .msg-list{margin-bottom:20px;display:flex;flex-direction:column;gap:8px}
+    .msg-item{
+      display:flex;align-items:center;gap:10px;padding:12px 14px;
+      border-radius:8px;font-size:13px;
+      background:rgba(231,76,60,.1);border:1px solid rgba(231,76,60,.3);color:#ff8f85;
+    }
+    .msg-item.success{background:rgba(10,138,114,.1);border-color:var(--border-em);color:var(--emerald-br)}
+    .msg-item i{font-size:16px;flex-shrink:0}
+
+    @keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+    .fu{animation:fadeUp .65s ease both}
+    .d1{animation-delay:.05s}.d2{animation-delay:.15s}.d3{animation-delay:.25s}
+    .d4{animation-delay:.35s}.d5{animation-delay:.45s}.d6{animation-delay:.55s}
+
+    @media(max-width:768px){
+      body{grid-template-columns:1fr}
+      .left-panel{display:none}
+      .right-panel{padding:32px 24px}
+    }
+  </style>
+</head>
+<body>
+
+<!-- LEFT BRANDING PANEL -->
+<div class="left-panel">
+  <a href="/" class="left-logo">Health<span>Care</span></a>
+  <div class="left-content">
+    <div class="left-badge"><i class="ri-shield-check-line"></i> Secure Patient Portal</div>
+    <h2>Your Health,<br>Our <strong>Priority</strong></h2>
+    <p>Access your medical records, prescriptions, and appointments securely from one place.</p>
+    <div class="left-stats">
+      <div><div class="ls-num">15K+</div><div class="ls-lbl">Patients</div></div>
+      <div><div class="ls-num">120+</div><div class="ls-lbl">Doctors</div></div>
+      <div><div class="ls-num">98%</div><div class="ls-lbl">Satisfaction</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- RIGHT FORM PANEL -->
+<div class="right-panel">
+  <div class="form-wrap">
+    <div class="form-header fu d1">
+      <div class="eyebrow">Patient Login</div>
+      <h1>Welcome Back</h1>
+      <p>Sign in to your HealthCare account to continue.</p>
+    </div>
+
+    {% if messages %}
+    <div class="msg-list fu d2">
+      {% for message in messages %}
+      <div class="msg-item {% if 'success' in message.tags %}success{% endif %}">
+        <i class="ri-{% if 'success' in message.tags %}checkbox-circle{% else %}error-warning{% endif %}-line"></i>
+        {{ message }}
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+
+    <form method="POST" action="{% url 'login' %}">
+      {% csrf_token %}
+
+      <div class="input-group fu d3">
+        <label>Email Address</label>
+        <div class="input-wrap">
+          <input type="email" name="email" placeholder="you@example.com" required autocomplete="email"/>
+          <i class="ri-mail-line"></i>
+        </div>
+      </div>
+
+      <div class="input-group fu d4">
+        <label>Password</label>
+        <div class="input-wrap" style="display:flex;align-items:center">
+          <input type="password" name="password" id="pwd" placeholder="Enter your password" required autocomplete="current-password"/>
+          <i class="ri-lock-line"></i>
+          <button type="button" class="eye-toggle" onclick="togglePwd()" id="eyeBtn">
+            <i class="ri-eye-off-line" id="eyeIcon"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="options-row fu d5">
+        <label class="remember">
+          <input type="checkbox" name="remember"> Remember me
+        </label>
+        <a href="#" class="forgot-link">Forgot Password?</a>
+      </div>
+
+      <button type="submit" class="btn-submit fu d5">
+        <i class="ri-login-box-line"></i> Sign In
+      </button>
+    </form>
+
+    <div class="divider fu d6"><span>Don't have an account?</span></div>
+    <div class="register-prompt fu d6">
+      <a href="{% url 'register' %}"><i class="ri-user-add-line"></i> Create a new account</a>
+    </div>
+  </div>
+</div>
+
+<script>
+  function togglePwd(){
+    const p=document.getElementById('pwd');
+    const i=document.getElementById('eyeIcon');
+    if(p.type==='password'){p.type='text';i.className='ri-eye-line';}
+    else{p.type='password';i.className='ri-eye-off-line';}
+  }
+</script>
+</body>
+</html>
