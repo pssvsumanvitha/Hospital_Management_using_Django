@@ -9,7 +9,10 @@ https://docs.djangoproject.com/en/5.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
+import os
 import pymysql
+from pathlib import Path
+
 pymysql.install_as_MySQLdb()
 
 from pathlib import Path
