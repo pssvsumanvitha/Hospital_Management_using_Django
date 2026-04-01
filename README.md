@@ -68,13 +68,6 @@ Prescription files are stored **directly in the database as binary data** (`Bina
 -  **View All Records** — See every patient's prescriptions and appointment history
 -  **Download Any File** — Download any prescription uploaded by any patient
 -  **Live Search** — Filter through patients, appointments, and prescriptions in real-time
-
-### General
--  **Premium UI** — Dark navy + emerald design with smooth animations
--  **Fully Responsive** — Works on desktop, tablet, and mobile
--  **Toast Notifications** — Non-intrusive alerts for all actions
--  **Noise Texture & Animations** — Polished micro-interactions throughout
-
 ---
 
 ##  Role-Based Access System
