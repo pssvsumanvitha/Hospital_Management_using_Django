@@ -1,5 +1,5 @@
 
-# 🏥 HealthCare — Patient Management Web Application
+#  HealthCare — Patient Management Web Application
 
 <div align="center">
 
@@ -17,7 +17,7 @@ secure prescription management, and an admin dashboard.**
 
 ---
 
-## 📸 Preview
+## Preview
 
 > **Home Page — Hero Section**
 
@@ -27,7 +27,7 @@ secure prescription management, and an admin dashboard.**
 
 ---
 
-## 📋 Table of Contents
+##  Table of Contents
 
 - [About The Project](#-about-the-project)
 - [Features](#-features)
@@ -44,7 +44,7 @@ secure prescription management, and an admin dashboard.**
 
 ---
 
-## 🔍 About The Project
+##  About The Project
 
 **HealthCare** is a full-stack web application built with **Django 5.2** that allows patients to book appointments, upload prescriptions securely, and manage their personal health records — all from a clean, modern interface.
 
@@ -54,30 +54,30 @@ Prescription files are stored **directly in the database as binary data** (`Bina
 
 ---
 
-## ✨ Features
+##  Features
 
 ### For Patients
-- 📅 **Book Appointments** — Fill a quick form directly from the homepage
-- 📄 **Upload Prescriptions** — Drag & drop PDF upload, stored securely in the database
-- 🔒 **Private Records** — Can only view and download their own files
-- 👤 **Account Management** — Register, login, and logout with session-based auth
+-  **Book Appointments** — Fill a quick form directly from the homepage
+-  **Upload Prescriptions** — Drag & drop PDF upload, stored securely in the database
+- **Private Records** — Can only view and download their own files
+-  **Account Management** — Register, login, and logout with session-based auth
 
 ### For Doctors & Admins
-- 🛡️ **Elevated Access** — Automatically granted after logging in with doctor/admin role
-- 📊 **Full Dashboard** — Tabbed view of all patients, appointments, and prescriptions
-- 👁️ **View All Records** — See every patient's prescriptions and appointment history
-- 📥 **Download Any File** — Download any prescription uploaded by any patient
-- 🔍 **Live Search** — Filter through patients, appointments, and prescriptions in real-time
+-  **Elevated Access** — Automatically granted after logging in with doctor/admin role
+-  **Full Dashboard** — Tabbed view of all patients, appointments, and prescriptions
+-  **View All Records** — See every patient's prescriptions and appointment history
+-  **Download Any File** — Download any prescription uploaded by any patient
+-  **Live Search** — Filter through patients, appointments, and prescriptions in real-time
 
 ### General
-- 🎨 **Premium UI** — Dark navy + emerald design with smooth animations
-- 📱 **Fully Responsive** — Works on desktop, tablet, and mobile
-- 🔔 **Toast Notifications** — Non-intrusive alerts for all actions
-- 🎭 **Noise Texture & Animations** — Polished micro-interactions throughout
+-  **Premium UI** — Dark navy + emerald design with smooth animations
+-  **Fully Responsive** — Works on desktop, tablet, and mobile
+-  **Toast Notifications** — Non-intrusive alerts for all actions
+-  **Noise Texture & Animations** — Polished micro-interactions throughout
 
 ---
 
-## 👥 Role-Based Access System
+##  Role-Based Access System
 
 This is the core feature of the application. Every user has one of three roles:
 
@@ -100,7 +100,7 @@ This is the core feature of the application. Every user has one of three roles:
 
 ---
 
-## 🛠 Tech Stack
+##  Tech Stack
 
 | Layer | Technology |
 |-------|-----------|
@@ -115,7 +115,7 @@ This is the core feature of the application. Every user has one of three roles:
 
 ---
 
-## 📁 Project Structure
+##  Project Structure
 
 ```
 myproject/
@@ -143,7 +143,7 @@ myproject/
 
 ---
 
-## 🗄 Database Models
+##  Database Models
 
 ### `Users` Model
 ```python
@@ -189,7 +189,7 @@ class Appointment(models.Model):
 
 ## 📸 Screenshots
 
-### 🏠 Home Page
+### Home Page
 
 ![Home Page](home.png)
 
@@ -198,7 +198,7 @@ class Appointment(models.Model):
 
 ---
 
-### 🔐 Login Page
+### Login Page
 
 ![Login Page](login.png)
 
@@ -206,19 +206,19 @@ class Appointment(models.Model):
 
 ---
 
-### 📝 Register Page
+### Register Page
 
 ![Register Page](signup.png)
 
 *Registration form with the role selector — users pick Patient, Doctor, or Admin when signing up.*
 
-### 📊 Admin Dashboard
+### Admin Dashboard
 
 ![Admin Dashboard](dashboard.png)
 
 *The full dashboard with sidebar navigation, stat cards, and tabbed tables for patients, appointments, and prescriptions.*
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 
@@ -267,7 +267,7 @@ http://127.0.0.1:8000/
 
 ---
 
-## ☁️ Deployment on Render
+## Deployment on Render
 
 **1. Push your code to GitHub**
 
@@ -301,7 +301,7 @@ pip install -r requirements.txt && python manage.py collectstatic --noinput && p
 
 ---
 
-## 🔐 How the Admin System Works
+##  How the Admin System Works
 
 ### 1. Role stored in the database
 When a user registers, their chosen role (`patient`, `doctor`, `admin`) is saved to the `Users` table.
@@ -342,7 +342,7 @@ def download_prescription(request, pk):
 
 ---
 
-## 🛡 Security Features
+## Security Features
 
 | Feature | Implementation |
 |---------|---------------|
@@ -355,7 +355,7 @@ def download_prescription(request, pk):
 
 ---
 
-## 🤝 Contributing
+##  Contributing
 
 Contributions are welcome! Here's how:
 
@@ -367,15 +367,15 @@ Contributions are welcome! Here's how:
 
 ---
 
-## 📄 License
+##  License
 
 Distributed under the MIT License. See `LICENSE` for more information.
 
 ---
 
-## 👨‍💻 Author
+## Author
 
-Built with ❤️ using Django · Designed for learning and real-world use.
+Developed by S S V Sumanvitha Palivela.
 
 ---
 
